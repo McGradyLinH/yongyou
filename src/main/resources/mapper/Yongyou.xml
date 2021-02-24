@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.YongyouMapper">
+
+    <select id="selectAllIncome" resultType="income">
+        select g.dbill_date,g.cdigest,g.mc,f.citemname,f.citemcode from [UFDATA_608_2016].[dbo].[GL_accvouch] as g left join [UFDATA_608_2016].[dbo].[fitemss97sub] as f on g.citem_id = f.citemcode
+        where ccode='600103' and [citem_id] is not null and [citem_id]!='01'and [citem_id]!='02'and [citem_id]!='10'and [citem_id]!='11'and [citem_id]!='12' and g.cdigest!='期间损益结转' group by g.dbill_date,g.cdigest,g.mc,f.citemname,f.citemcode
+    </select>
+</mapper>
