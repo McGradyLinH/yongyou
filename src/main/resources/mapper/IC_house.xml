@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.IC_houseMapper">
+
+    <resultMap id="ic_house" type="iC_House">
+        <result column="assetName" jdbcType="VARCHAR" property="assetName"/>
+        <result column="oldValue" jdbcType="DECIMAL" property="oldValue"/>
+        <result column="depreciationAmountOfMonth" jdbcType="DECIMAL" property="depreciationAmountOfMonth"/>
+        <result column="depreciationAmountOfYear" jdbcType="DECIMAL" property="depreciationAmountOfYear"/>
+        <result column="depreciationAmountOfAll" jdbcType="DECIMAL" property="depreciationAmountOfAll"/>
+        <result column="netValue" jdbcType="DECIMAL" property="netValue"/>
+        <result column="companyCode" jdbcType="DECIMAL" property="companyCode"/>
+        <association property="ic_houseIncome" javaType="iC_HouseIncome">
+            <result column="rent" jdbcType="DECIMAL" property="rent"/>
+            <result column="rentExcludingTax" jdbcType="DECIMAL" property="rentExcludingTax"/>
+            <result column="tax" jdbcType="DECIMAL" property="tax"/>
+        </association>
+    </resultMap>
+
+    <select id="selectHouseByCompanyCode" parameterType="java.lang.Integer" resultMap="ic_house">
+        select * from IC_house
+        <where>
+            <if test="_parameter != null and _parameter != ''">
+                companyCode=#{_parameter}
+            </if>
+        </where>
+    </select>
+
+    <insert id="batchInsertHouse" parameterType="java.util.List">
+        insert into IC_house (assetName,oldValue,depreciationAmountOfMonth,depreciationAmountOfYear,depreciationAmountOfAll,netValue,companyCode)
+        values
+        <foreach collection="list" item="house" separator=",">
+            (#{house.assetName},#{house.oldValue},#{house.depreciationAmountOfMonth},#{house.depreciationAmountOfYear},#{house.depreciationAmountOfAll}
+            ,#{house.netValue},#{house.companyCode})
+        </foreach>
+    </insert>
+
+    <update id="batchUpdateHouse" parameterType="iC_House">
+        update IC_house set rent=#{rent},rentExcludingTax=#{rentExcludingTax},tax=#{tax}
+        where assetName = #{assetName}
+    </update>
+</mapper>

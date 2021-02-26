@@ -1,15 +1,15 @@
 spring:
   datasource:
-    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-    url: jdbc:sqlserver://192.168.188.11:1433;DatabaseName=UFDATA_608_2016
-    username: sa
-    password: ABC123abc
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://cd-cdb-217paoj2.sql.tencentcdb.com:63263/ryncdcxttest?serverTimezone=PRC
+    username: root
+    password: jc86937378
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.example.demo.domain
 pagehelper:
-  helper-dialect: sqlserver
+  helper-dialect: mysql
   reasonable: true
   support-methods-arguments: true
   params: count=countsql

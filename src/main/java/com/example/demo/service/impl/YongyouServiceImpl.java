@@ -2,7 +2,6 @@ package com.example.demo.service.impl;
 
 import com.example.demo.domain.Income;
 import com.example.demo.mapper.YongyouMapper;
-import com.example.demo.myannotate.LogAnnotation;
 import com.example.demo.service.YongyouService;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +19,6 @@ public class YongyouServiceImpl implements YongyouService {
     YongyouMapper mapper;
 
     @Override
-    @LogAnnotation
     public List<Income> selectAllIncome() {
         return mapper.selectAllIncome();
     }
