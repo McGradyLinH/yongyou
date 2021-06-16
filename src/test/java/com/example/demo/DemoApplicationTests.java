@@ -3,7 +3,9 @@ package com.example.demo;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.ExcelReader;
 import com.example.demo.domain.IC_House;
+import com.example.demo.domain.IC_HouseDetail;
 import com.example.demo.domain.IC_HouseIncome;
+import com.example.demo.listener.IC_HouseDetailListener;
 import com.example.demo.listener.IC_HouseIncomeListener;
 import com.example.demo.listener.IC_HouseListener;
 import com.example.demo.mapper.IC_houseMapper;
@@ -26,9 +28,9 @@ class DemoApplicationTests {
 
     @Test
     void contextLoads() {
-        String fileName = "C:\\Users\\Administrator\\Desktop\\20年房租收入.xlsx";
+        String fileName = "C:\\Users\\LX\\Desktop\\资产台帐2020.12.7（2）.xls";
         // 这里 需要指定读用哪个class去读，然后读取第一个sheet 文件流会自动关闭
-        EasyExcel.read(fileName, IC_HouseIncome.class, new IC_HouseIncomeListener(service)).sheet().doRead();
+        EasyExcel.read(fileName, IC_HouseDetail.class, new IC_HouseDetailListener(service)).sheet().doRead();
     }
 
     @Test

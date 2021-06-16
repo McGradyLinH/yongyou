@@ -4,6 +4,7 @@
 <mapper namespace="com.example.demo.mapper.IC_houseMapper">
 
     <resultMap id="ic_house" type="iC_House">
+        <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="assetName" jdbcType="VARCHAR" property="assetName"/>
         <result column="oldValue" jdbcType="DECIMAL" property="oldValue"/>
         <result column="depreciationAmountOfMonth" jdbcType="DECIMAL" property="depreciationAmountOfMonth"/>
@@ -11,6 +12,8 @@
         <result column="depreciationAmountOfAll" jdbcType="DECIMAL" property="depreciationAmountOfAll"/>
         <result column="netValue" jdbcType="DECIMAL" property="netValue"/>
         <result column="companyCode" jdbcType="DECIMAL" property="companyCode"/>
+        <result column="detailId" jdbcType="INTEGER" property="detailId"/>
+        <result column="housecode" jdbcType="VARCHAR" property="housecode"/>
         <association property="ic_houseIncome" javaType="iC_HouseIncome">
             <result column="rent" jdbcType="DECIMAL" property="rent"/>
             <result column="rentExcludingTax" jdbcType="DECIMAL" property="rentExcludingTax"/>
@@ -40,4 +43,31 @@
         update IC_house set rent=#{rent},rentExcludingTax=#{rentExcludingTax},tax=#{tax}
         where assetName = #{assetName}
     </update>
+
+    <update id="updateHouseCode" parameterType="iC_House">
+        update IC_house set housecode = #{housecode} where assetName = #{assetName}
+    </update>
+
+    <insert id="batchInsertHouseDetail" parameterType="java.util.List">
+        insert into IC_house_detail (tdsyzh,fwsyqzh,gmhtbh,qy,fwzl,gmrq,ghyt,kfs,zcs,jzmj,tnjzmj,tdsyzzq,syqmj)
+        values
+        <foreach collection="list" item="house" separator=",">
+            (#{house.tdsyzh},#{house.fwsyqzh},#{house.gmhtbh},#{house.qy},#{house.fwzl},#{house.gmrq},#{house.ghyt}
+            ,#{house.kfs},#{house.zcs},#{house.jzmj},#{house.tnjzmj},#{house.tdsyzzq},#{house.syqmj})
+        </foreach>
+    </insert>
+
+    <select id="queryDetailByDetailId" resultType="iC_HouseDetail" parameterType="java.lang.Integer">
+        select *
+        from IC_house_detail where id = #{_parameter}
+    </select>
+
+    <insert id="insertContract" parameterType="iC_HouseContract">
+        insert into IC_contract (expireDate,contractCode,houseId) values (#{expireDate},#{contractCode},#{houseId})
+    </insert>
+
+    <select id="selectContractByHoseId" resultType="iC_HouseContract" parameterType="java.lang.Integer">
+        select *
+        from IC_contract where houseId = #{_parameter} order by expireDate desc limit 1
+    </select>
 </mapper>

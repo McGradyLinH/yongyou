@@ -1,7 +1,9 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.domain.IC_House;
+import com.example.demo.domain.IC_HouseDetail;
 import com.example.demo.domain.IC_HouseIncome;
+import com.example.demo.domain.IC_HouseContract;
 import com.example.demo.mapper.IC_houseMapper;
 import com.example.demo.service.IC_HouseService;
 import org.springframework.stereotype.Service;
@@ -37,5 +39,30 @@ public class IC_HouseServiceImpl implements IC_HouseService {
     public int batchUpdateHouse(List<IC_HouseIncome> list) {
         list.forEach(mapper::batchUpdateHouse);
         return 1;
+    }
+
+    @Override
+    public int batchInsertHouseDetail(List<IC_HouseDetail> list) {
+        return mapper.batchInsertHouseDetail(list);
+    }
+
+    @Override
+    public IC_HouseDetail queryDetailByDetailId(Integer detailId) {
+        return mapper.queryDetailByDetailId(detailId);
+    }
+
+    @Override
+    public int insertContract(IC_HouseContract contract) {
+        return mapper.insertContract(contract);
+    }
+
+    @Override
+    public IC_HouseContract selectContractByHoseId(Integer houseId) {
+        return mapper.selectContractByHoseId(houseId);
+    }
+
+    @Override
+    public int updateHouseCode(IC_House ic_house) {
+        return mapper.updateHouseCode(ic_house);
     }
 }

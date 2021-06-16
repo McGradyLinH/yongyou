@@ -11,6 +11,7 @@ import java.math.BigDecimal;
  **/
 @Data
 public class IC_House {
+    private Integer id;
 
     @ExcelProperty("卡片编号")
     private String cardCode;
@@ -39,7 +40,16 @@ public class IC_House {
     private Integer companyCode;
 
     private IC_HouseIncome ic_houseIncome;
+    /**
+     * 详细信息id
+     */
+    private Integer detailId;
 
     //折旧率
     private String depreciationAmountRate;
+
+    private String housecode;
+
+    private boolean editFlag;
+
 }
